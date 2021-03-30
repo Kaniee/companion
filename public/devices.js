@@ -79,6 +79,22 @@ $(function() {
 				$('#deviceModal .modal-body').append($form);
 			}
 
+			// Enable device
+			if (device.config.indexOf('enable_device') !== -1) {
+				if(settings.enable_device == undefined || settings.enable_device == null ) settings.enable_device = true
+				var $form = $(`<form><div class="form-group"><label><input type="checkbox" name="enable_device" ${settings.enable_device ? "checked " : " "}class="form-control-range enable_device">Enable device</label></div></form>`);
+				var $enable_device = $form.find('input.enable_device');
+				
+				$enable_device.on('change', function () {
+					console.log("enable_device change",$enable_device[0].checked)
+
+					settings.enable_device = $enable_device[0].checked
+					socket.emit('device_config_set', device.id, settings);
+				})
+
+				$('#deviceModal .modal-body').append($form);
+			}
+
 
 			$('#deviceModal').modal();
 
@@ -96,10 +112,12 @@ $(function() {
 
 			var $tr = $("<tr></tr>");
 
+			var $td_no = $("<td></td>");
 			var $td_id = $("<td></td>");
 			var $td_type = $("<td></td>");
 			var $td_settings = $("<td class='text-center'></td>");
 
+			$td_no.text("#"+n);
 			$td_id.text(data.serialnumber);
 			$td_type.text(data.type);
 
@@ -108,6 +126,7 @@ $(function() {
 				$td_settings.html("<button class='device_settings align-center btn btn-success'><i class='fa fa-gear'></i> Settings</button>");
 			}
 
+			$tr.append($td_no);
 			$tr.prop('id', n);
 			$tr.append($td_id);
 			$tr.append($td_type);

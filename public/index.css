@@ -168,7 +168,6 @@ label {
 }
 .instance-edit, .instance-delete, .instance-disable {
 	padding-top: 2px !important;
-	text-transform: uppercase;
 	padding-bottom: 2px !important;
 	font-size: 12px;
 }
@@ -703,4 +702,12 @@ input[type="range"].action-number.form-control {
 	/* Remove the horizontal padding added by default to all .form-control elements. */
 	padding-left: 0;
 	padding-right: 0;
+}
+
+.filechoosercontainer {
+	white-space: nowrap;
+}
+
+.filechoosercontainer #clearPngButton {
+	margin-bottom: -4px;
 }
